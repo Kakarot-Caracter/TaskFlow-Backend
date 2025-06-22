@@ -117,6 +117,7 @@ export class AuthService {
       sameSite: 'none',
       maxAge: 1000 * 60 * 60 * 24 * 7,
       path: '/',
+      priority: 'high',
       // domain: 'taskflow-backend-production-006a.up.railway.app'  // opcional
     });
   }
