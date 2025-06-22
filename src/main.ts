@@ -11,7 +11,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: true, // o '*' para permitir cualquier origen
+    origin: 'https://task-flow-8i9xyldrs-kakarotcaracters-projects.vercel.app',
     credentials: true, // Importante si usas cookies/tokens
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
