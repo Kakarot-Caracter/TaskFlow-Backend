@@ -113,10 +113,11 @@ export class AuthService {
   private setCookie(res: Response, token: string) {
     res.cookie('auth_token', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 1000 * 60 * 60 * 24 * 7,
       path: '/',
+      // domain: 'taskflow-backend-production-006a.up.railway.app'  // opcional
     });
   }
 }
