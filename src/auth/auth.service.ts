@@ -117,7 +117,7 @@ export class AuthService {
       sameSite: 'none', // Necesario para cross-site
       maxAge: 1000 * 60 * 60 * 24 * 7,
       path: '/',
-      // Si tienes un dominio personalizado
+      domain: 'https://taskflow-backend-production-6b16.up.railway.app/',
     });
   }
 }
