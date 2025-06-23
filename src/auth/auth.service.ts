@@ -113,12 +113,12 @@ export class AuthService {
   private setCookie(res: Response, token: string) {
     res.cookie('auth_token', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'none',
+      secure: true, // Debe ser true en producción
+      sameSite: 'none', // Necesario para cross-site
       maxAge: 1000 * 60 * 60 * 24 * 7,
       path: '/',
-      priority: 'high',
-      // domain: 'taskflow-backend-production-006a.up.railway.app'  // opcional
+      domain:
+        'https://task-flow-hdln05qnr-kakarotcaracters-projects.vercel.app/', // Si tienes un dominio personalizado
     });
   }
 }

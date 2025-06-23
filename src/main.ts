@@ -10,13 +10,13 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
+  console.log(process.env.FRONTEND_URL);
+
   app.enableCors({
-    origin: [
-      'https://task-flow-hdln05qnr-kakarotcaracters-projects.vercel.app',
-      'https://task-flow-hdln05qnr-kakarotcaracters-projects.vercel.app/',
-    ],
-    credentials: true, // Importante si usas cookies/tokens
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   app.useGlobalPipes(
