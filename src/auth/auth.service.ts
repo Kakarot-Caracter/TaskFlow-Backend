@@ -117,8 +117,7 @@ export class AuthService {
       sameSite: 'none', // Necesario para cross-site
       maxAge: 1000 * 60 * 60 * 24 * 7,
       path: '/',
-      domain:
-        'https://task-flow-hdln05qnr-kakarotcaracters-projects.vercel.app/', // Si tienes un dominio personalizado
+      // Si tienes un dominio personalizado
     });
   }
 }
