@@ -62,14 +62,7 @@ export class AuthService {
     return { user };
   }
 
-  logout(res: Response): void {
-    res.clearCookie('auth_token', {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
-      path: '/',
-    });
-  }
+  
 
   async generateResetToken(email: string): Promise<string> {
     const user = await this.prisma.user.findUnique({ where: { email } });
