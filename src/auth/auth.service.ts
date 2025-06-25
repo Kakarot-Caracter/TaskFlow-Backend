@@ -110,7 +110,7 @@ private setCookie(res: Response, token: string) {
     sameSite: 'none', // Permite cookies cross-domain
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 semana
     path: '/',
-    domain: 'task-flow-flame-nine.vercel.app' // Tu dominio exacto de Vercel
+   
   });
 }
 
@@ -120,7 +120,7 @@ logout(res: Response): void {
     secure: true,
     sameSite: 'none',
     path: '/',
-    domain: 'task-flow-flame-nine.vercel.app'
+   
   });
 }
 }
