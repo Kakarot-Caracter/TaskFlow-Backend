@@ -104,27 +104,23 @@ export class AuthService {
   }
 
 private setCookie(res: Response, token: string) {
-  const isProduction = process.env.NODE_ENV === 'production';
-  
   res.cookie('auth_token', token, {
     httpOnly: true,
-    secure: isProduction, // true en producción
-    sameSite: isProduction ? 'none' : 'lax', // 'none' para cross-site
+    secure: true, // Obligatorio para sameSite: 'none'
+    sameSite: 'none', // Permite cookies cross-domain
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 semana
     path: '/',
-    domain: isProduction ? '.vercel.app' : 'localhost' // Dominio principal
+    domain: 'task-flow-flame-nine.vercel.app' // Tu dominio exacto de Vercel
   });
 }
 
 logout(res: Response): void {
-  const isProduction = process.env.NODE_ENV === 'production';
-  
   res.clearCookie('auth_token', {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    secure: true,
+    sameSite: 'none',
     path: '/',
-    domain: isProduction ? '.vercel.app' : 'localhost'
+    domain: 'task-flow-flame-nine.vercel.app'
   });
 }
 }
