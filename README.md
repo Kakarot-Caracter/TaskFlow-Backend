@@ -1,98 +1,98 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# TaskFlow API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Welcome to the TaskFlow API! This is a robust and scalable backend solution for a task management application, built with NestJS, Prisma, and other modern technologies.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Description
 
-## Description
+TaskFlow is a powerful and intuitive task management application that helps you organize your work and life. This backend API provides all the necessary functionalities to create, manage, and track your tasks, with a secure authentication system and a well-structured database.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## ✨ Features
 
-## Project setup
+*   **User Authentication:** Secure user registration and login with JWT (JSON Web Tokens).
+*   **Password Reset:** Users can reset their passwords via email.
+*   **Task Management:** Create, read, update, and delete tasks.
+*   **Task Prioritization:** Assign priorities to your tasks (LOW, MEDIUM, HIGH).
+*   **Database:** Uses Prisma with a SQLite database for easy setup and development.
+*   **Scalable Architecture:** Built with NestJS, a progressive Node.js framework for building efficient, reliable and scalable server-side applications.
 
-```bash
-$ npm install
+## 🛠️ Technologies
+
+*   **[NestJS](https://nestjs.com/):** A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+*   **[Prisma](https://www.prisma.io/):** A next-generation ORM for Node.js and TypeScript.
+*   **[SQLite](https://www.sqlite.org/index.html):** A C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
+*   **[JWT](https://jwt.io/):** JSON Web Tokens for secure authentication.
+*   **[Nodemailer](https://nodemailer.com/):** A module for Node.js applications to allow easy as cake email sending.
+*   **[TypeScript](https://www.typescriptlang.org/):** A typed superset of JavaScript that compiles to plain JavaScript.
+*   **[Prettier](https://prettier.io/):** An opinionated code formatter.
+*   **[ESLint](https://eslint.org/):** A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
+
+## 🏁 Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+*   [Node.js](https://nodejs.org/en/) (v16 or higher)
+*   [npm](https://www.npmjs.com/)
+
+### Installation
+
+1.  Clone the repo
+    ```sh
+    git clone https://github.com/your_username/taskflow-backend.git
+    ```
+2.  Install NPM packages
+    ```sh
+    npm install
+    ```
+3.  Set up the database
+    ```sh
+    npx prisma migrate dev
+    ```
+4.  Create a `.env` file in the root of the project and add the following environment variables:
+    ```env
+    DATABASE_URL="file:./prisma/dev.db"
+    JWT_SECRET="your_jwt_secret"
+    MAIL_HOST="your_mail_host"
+    MAIL_USER="your_mail_user"
+    MAIL_PASS="your_mail_password"
+    MAIL_FROM="your_mail_from"
+    ```
+
+### Running the application
+
+```sh
+# Development
+npm run dev
+
+# Watch mode
+npm run start:dev
+
+# Production mode
+npm run start:prod
 ```
 
-## Compile and run the project
+## 📄 API Documentation
 
-```bash
-# development
-$ npm run start
+### Auth
 
-# watch mode
-$ npm run start:dev
+*   `POST /auth/register`: Register a new user.
+*   `POST /auth/login`: Login an existing user.
+*   `POST /auth/logout`: Logout the current user.
+*   `POST /auth/forgot-password`: Send a password reset email.
+*   `POST /auth/reset-password`: Reset the user's password.
 
-# production mode
-$ npm run start:prod
-```
+### User
 
-## Run tests
+*   `GET /user`: Get the current user's information.
 
-```bash
-# unit tests
-$ npm run test
+### Task
 
-# e2e tests
-$ npm run test:e2e
+*   `POST /task`: Create a new task.
+*   `GET /task`: Get all tasks for the current user.
+*   `PATCH /task/:id`: Update a task.
+*   `DELETE /task/:id`: Delete a task.
 
-# test coverage
-$ npm run test:cov
-```
+## 📜 License
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Distributed under the UNLICENSED License. See `LICENSE` for more information.
