@@ -52,14 +52,6 @@ let AuthService = class AuthService {
         this.setCookie(res, token);
         return { user };
     }
-    logout(res) {
-        res.clearCookie('auth_token', {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
-            path: '/',
-        });
-    }
     async generateResetToken(email) {
         const user = await this.prisma.user.findUnique({ where: { email } });
         if (!user)
@@ -97,9 +89,17 @@ let AuthService = class AuthService {
     setCookie(res, token) {
         res.cookie('auth_token', token, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
+            secure: true,
+            sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 7,
+            path: '/',
+        });
+    }
+    logout(res) {
+        res.clearCookie('auth_token', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
             path: '/',
         });
     }

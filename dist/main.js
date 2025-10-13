@@ -8,17 +8,19 @@ const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use(cookieParser());
+    console.log(process.env.FRONTEND_URL);
     app.enableCors({
-        origin: 'https://task-flow-8i9xyldrs-kakarotcaracters-projects.vercel.app',
+        origin: process.env.FRONTEND_URL || 'http://localhost:3000',
         credentials: true,
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
     });
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,
         transform: true,
     }));
-    await app.listen(process.env.PORT ?? 3002);
+    await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
