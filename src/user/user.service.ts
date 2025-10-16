@@ -8,16 +8,12 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(id: number) {
-    try {
-      return await this.prisma.user.findMany({
-        where: { id },
-        select: {
-          name: true,
-          email: true,
-        },
-      });
-    } catch (error) {
-      handlePrismaError(error);
-    }
+    return await this.prisma.user.findFirst({
+      where: { id },
+      select: {
+        name: true,
+        email: true,
+      },
+    });
   }
 }

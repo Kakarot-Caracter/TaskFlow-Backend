@@ -11,7 +11,7 @@ import * as crypto from 'crypto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user-dto';
 import { Response } from 'express';
-import { User } from 'generated/prisma';
+
 import { Jwtpayload } from './interfaces/jwt.payload';
 import { JwtService } from '@nestjs/jwt';
 
@@ -22,21 +22,18 @@ export class AuthService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async register(dto: CreateUserDto, res: Response): Promise<{ user: User }> {
-    const isExist = await this.prisma.user.findUnique({
-      where: { email: dto.email, name: dto.name },
-    });
-    if (isExist)
-      throw new BadRequestException(
-        'Ya estás autenticado, no puedes registrarte nuevamente',
-      );
-
+  async register(dto: CreateUserDto, res: Response) {
     const hashed = await bcrypt.hash(dto.password, 10);
 
     const user = await this.prisma.user.create({
       data: {
         ...dto,
         password: hashed,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
       },
     });
 
@@ -47,22 +44,21 @@ export class AuthService {
     return { user };
   }
 
-  async login(dto: LoginUserDto, res: Response): Promise<{ user: User }> {
+  async login(dto: LoginUserDto, res: Response) {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
-    if (!user) throw new NotFoundException('Usuario no encontrado');
+
+    if (!user) throw new NotFoundException('Usuario no registrado.');
 
     const valid = await bcrypt.compare(dto.password, user.password);
-    if (!valid) throw new UnauthorizedException('Contraseña inválida');
+    if (!valid) throw new UnauthorizedException('Contraseña inválida.');
 
     const token = this.signToken({ id: user.id });
     this.setCookie(res, token);
 
-    return { user };
+    return { id: user.id, name: user.name, email: user.email };
   }
-
-  
 
   async generateResetToken(email: string): Promise<string> {
     const user = await this.prisma.user.findUnique({ where: { email } });
@@ -103,24 +99,22 @@ export class AuthService {
     return this.jwtService.sign(payload);
   }
 
-private setCookie(res: Response, token: string) {
-  res.cookie('auth_token', token, {
-    httpOnly: true,
-    secure: true, // Obligatorio para sameSite: 'none'
-    sameSite: 'none', // Permite cookies cross-domain
-    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 semana
-    path: '/',
-   
-  });
-}
+  private setCookie(res: Response, token: string) {
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: true, // Obligatorio para sameSite: 'none'
+      sameSite: 'none', // Permite cookies cross-domain
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 semana
+      path: '/',
+    });
+  }
 
-logout(res: Response): void {
-  res.clearCookie('auth_token', {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-    path: '/',
-   
-  });
-}
+  logout(res: Response): void {
+    res.clearCookie('auth_token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      path: '/',
+    });
+  }
 }

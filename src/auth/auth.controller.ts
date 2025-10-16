@@ -1,5 +1,4 @@
-// src/auth/auth.controller.ts
-import { Controller, Post, Body, Res, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user-dto';
@@ -20,7 +19,7 @@ export class AuthController {
     @Body() dto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { user } = await this.authService.register(dto, res);
+    const user = await this.authService.register(dto, res);
     return { message: 'Registro exitoso', user };
   }
 
@@ -29,7 +28,7 @@ export class AuthController {
     @Body() dto: LoginUserDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { user } = await this.authService.login(dto, res);
+    const user = await this.authService.login(dto, res);
     return { message: 'Login exitoso', user };
   }
 

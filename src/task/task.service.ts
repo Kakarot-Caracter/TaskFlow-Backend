@@ -8,46 +8,30 @@ import { handlePrismaError } from 'src/prisma/prisma.error.handler';
 export class TaskService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createTaskDto: CreateTaskDto, userId: number) {
-    try {
-      return await this.prisma.task.create({
-        data: {
-          ...createTaskDto,
-          dueDate: new Date(createTaskDto.dueDate),
-          userId,
-        },
-      });
-    } catch (error) {
-      handlePrismaError(error);
-    }
+    return await this.prisma.task.create({
+      data: {
+        ...createTaskDto,
+        dueDate: new Date(createTaskDto.dueDate),
+        userId,
+      },
+    });
   }
 
   async findAll(userId: number) {
-    try {
-      return await this.prisma.task.findMany({ where: { userId } });
-    } catch (error) {
-      handlePrismaError(error);
-    }
+    return await this.prisma.task.findMany({ where: { userId } });
   }
 
   async update(id: number, userId: number, updateTaskDto: UpdateTaskDto) {
-    try {
-      return await this.prisma.task.update({
-        where: {
-          id,
-          userId,
-        },
-        data: updateTaskDto,
-      });
-    } catch (error) {
-      handlePrismaError(error);
-    }
+    return await this.prisma.task.update({
+      where: {
+        id,
+        userId,
+      },
+      data: updateTaskDto,
+    });
   }
 
   async remove(id: number, userId: number) {
-    try {
-      return await this.prisma.task.delete({ where: { id, userId } });
-    } catch (error) {
-      handlePrismaError(error);
-    }
+    return await this.prisma.task.delete({ where: { id, userId } });
   }
 }

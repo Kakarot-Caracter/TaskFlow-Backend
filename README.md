@@ -8,23 +8,23 @@ TaskFlow is a powerful and intuitive task management application that helps you 
 
 ## ✨ Features
 
-*   **User Authentication:** Secure user registration and login with JWT (JSON Web Tokens).
-*   **Password Reset:** Users can reset their passwords via email.
-*   **Task Management:** Create, read, update, and delete tasks.
-*   **Task Prioritization:** Assign priorities to your tasks (LOW, MEDIUM, HIGH).
-*   **Database:** Uses Prisma with a SQLite database for easy setup and development.
-*   **Scalable Architecture:** Built with NestJS, a progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+- **User Authentication:** Secure user registration and login with JWT (JSON Web Tokens).
+- **Password Reset:** Users can reset their passwords via email.
+- **Task Management:** Create, read, update, and delete tasks.
+- **Task Prioritization:** Assign priorities to your tasks (LOW, MEDIUM, HIGH).
+- **Database:** Uses Prisma with a SQLite database for easy setup and development.
+- **Scalable Architecture:** Built with NestJS, a progressive Node.js framework for building efficient, reliable and scalable server-side applications.
 
 ## 🛠️ Technologies
 
-*   **[NestJS](https://nestjs.com/):** A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
-*   **[Prisma](https://www.prisma.io/):** A next-generation ORM for Node.js and TypeScript.
-*   **[SQLite](https://www.sqlite.org/index.html):** A C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
-*   **[JWT](https://jwt.io/):** JSON Web Tokens for secure authentication.
-*   **[Nodemailer](https://nodemailer.com/):** A module for Node.js applications to allow easy as cake email sending.
-*   **[TypeScript](https://www.typescriptlang.org/):** A typed superset of JavaScript that compiles to plain JavaScript.
-*   **[Prettier](https://prettier.io/):** An opinionated code formatter.
-*   **[ESLint](https://eslint.org/):** A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
+- **[NestJS](https://nestjs.com/):** A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+- **[Prisma](https://www.prisma.io/):** A next-generation ORM for Node.js and TypeScript.
+- **[SQLite](https://www.sqlite.org/index.html):** A C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
+- **[JWT](https://jwt.io/):** JSON Web Tokens for secure authentication.
+- **[Nodemailer](https://nodemailer.com/):** A module for Node.js applications to allow easy as cake email sending.
+- **[TypeScript](https://www.typescriptlang.org/):** A typed superset of JavaScript that compiles to plain JavaScript.
+- **[Prettier](https://prettier.io/):** An opinionated code formatter.
+- **[ESLint](https://eslint.org/):** A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
 
 ## 🏁 Getting Started
 
@@ -32,8 +32,8 @@ To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
-*   [Node.js](https://nodejs.org/en/) (v16 or higher)
-*   [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/en/) (v16 or higher)
+- [npm](https://www.npmjs.com/)
 
 ### Installation
 
@@ -76,22 +76,22 @@ npm run start:prod
 
 ### Auth
 
-*   `POST /auth/register`: Register a new user.
-*   `POST /auth/login`: Login an existing user.
-*   `POST /auth/logout`: Logout the current user.
-*   `POST /auth/forgot-password`: Send a password reset email.
-*   `POST /auth/reset-password`: Reset the user's password.
+- `POST /auth/register`: Register a new user.
+- `POST /auth/login`: Login an existing user.
+- `POST /auth/logout`: Logout the current user.
+- `POST /auth/forgot-password`: Send a password reset email.
+- `POST /auth/reset-password`: Reset the user's password.
 
 ### User
 
-*   `GET /user`: Get the current user's information.
+- `GET /user`: Get the current user's information.
 
 ### Task
 
-*   `POST /task`: Create a new task.
-*   `GET /task`: Get all tasks for the current user.
-*   `PATCH /task/:id`: Update a task.
-*   `DELETE /task/:id`: Delete a task.
+- `POST /task`: Create a new task.
+- `GET /task`: Get all tasks for the current user.
+- `PATCH /task/:id`: Update a task.
+- `DELETE /task/:id`: Delete a task.
 
 ## 📜 License
 
