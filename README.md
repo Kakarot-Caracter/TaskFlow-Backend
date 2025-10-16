@@ -2,11 +2,11 @@
 
 Welcome to the TaskFlow API! This is a robust and scalable backend solution for a task management application, built with NestJS, Prisma, and other modern technologies.
 
-## 🚀 Description
+## ✨ Live Demo
 
-TaskFlow is a powerful and intuitive task management application that helps you organize your work and life. This backend API provides all the necessary functionalities to create, manage, and track your tasks, with a secure authentication system and a well-structured database.
+_There is no live demo available at the moment._
 
-## ✨ Features
+## 🚀 Features
 
 - **User Authentication:** Secure user registration and login with JWT (JSON Web Tokens).
 - **Password Reset:** Users can reset their passwords via email.
@@ -49,21 +49,25 @@ To get a local copy up and running, follow these simple steps.
     ```sh
     npx prisma migrate dev
     ```
-4.  Create a `.env` file in the root of the project and add the following environment variables:
-    ```env
-    DATABASE_URL="file:./prisma/dev.db"
-    JWT_SECRET="your_jwt_secret"
-    MAIL_HOST="your_mail_host"
-    MAIL_USER="your_mail_user"
-    MAIL_PASS="your_mail_password"
-    MAIL_FROM="your_mail_from"
-    ```
+
+### Environment Variables
+
+Create a `.env` file in the root of the project and add the following environment variables:
+
+```env
+DATABASE_URL="file:./prisma/dev.db"
+JWT_SECRET="your_jwt_secret"
+MAIL_HOST="your_mail_host"
+MAIL_USER="your_mail_user"
+MAIL_PASS="your_mail_password"
+MAIL_FROM="your_mail_from"
+```
 
 ### Running the application
 
 ```sh
 # Development
-npm run dev
+npm run start
 
 # Watch mode
 npm run start:dev
@@ -72,7 +76,7 @@ npm run start:dev
 npm run start:prod
 ```
 
-## 📄 API Documentation
+## 📄 API Endpoints
 
 ### Auth
 
@@ -92,6 +96,65 @@ npm run start:prod
 - `GET /task`: Get all tasks for the current user.
 - `PATCH /task/:id`: Update a task.
 - `DELETE /task/:id`: Delete a task.
+
+## 📁 Project Structure
+
+```
+taskflow-backend/
+├── prisma/
+│   ├── dev.db
+│   ├── migrations/
+│   └── schema.prisma
+├── src/
+│   ├── auth/
+│   ├── common/
+│   ├── mail/
+│   ├── prisma/
+│   ├── task/
+│   ├── user/
+│   ├── app.module.ts
+│   └── main.ts
+├── .env.example
+├── .gitignore
+├── package.json
+└── README.md
+```
+
+## 📊 Database Schema
+
+```mermaid
+erDiagram
+    User {
+        Int id PK
+        String email UK
+        String name
+        String password
+        String resetToken
+        DateTime resetTokenExpires
+    }
+
+    Task {
+        Int id PK
+        String title
+        String description
+        String status
+        String priority
+        DateTime dueDate
+        Int userId FK
+    }
+
+    User ||--o{ Task : "has"
+```
+
+## 🤝 Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
 ## 📜 License
 
