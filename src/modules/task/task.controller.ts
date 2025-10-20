@@ -10,9 +10,10 @@ import {
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
-import { GetUser } from 'src/auth/decorators/get-user.decorator';
+
 import { User } from 'generated/prisma';
+import { GetUser } from 'src/common/decorators/get-user.decorator';
+import { Auth } from 'src/common/decorators/auth.decorator';
 
 @Controller('task')
 @Auth()

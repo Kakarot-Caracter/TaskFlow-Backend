@@ -1,47 +1,43 @@
-// src/auth/auth.service.ts
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user-dto';
+
 import { Response } from 'express';
 
-import { Jwtpayload } from './interfaces/jwt.payload';
+//Services
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from 'src/database/prisma.service';
+import { UserService } from '../user/user.service';
+
+//Dtos
+import { LoginUserDto } from './dto/login-user.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+
+//Interfaces
+import { Jwtpayload } from './interfaces/jwt.payload';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
+    private readonly userService: UserService,
   ) {}
 
   async register(dto: CreateUserDto, res: Response) {
-    const hashed = await bcrypt.hash(dto.password, 10);
-
-    const user = await this.prisma.user.create({
-      data: {
-        ...dto,
-        password: hashed,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-      },
-    });
+    const user = await this.userService.createUser(dto);
 
     const token = this.signToken({ id: user.id });
 
     this.setCookie(res, token);
 
-    return { user };
+    return user;
   }
 
   async login(dto: LoginUserDto, res: Response) {
@@ -58,6 +54,15 @@ export class AuthService {
     this.setCookie(res, token);
 
     return { id: user.id, name: user.name, email: user.email };
+  }
+
+  logout(res: Response) {
+    res.clearCookie('auth_token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      path: '/',
+    });
   }
 
   async generateResetToken(email: string): Promise<string> {
@@ -105,15 +110,6 @@ export class AuthService {
       secure: true, // Obligatorio para sameSite: 'none'
       sameSite: 'none', // Permite cookies cross-domain
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 semana
-      path: '/',
-    });
-  }
-
-  logout(res: Response): void {
-    res.clearCookie('auth_token', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
       path: '/',
     });
   }

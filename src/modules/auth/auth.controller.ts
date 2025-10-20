@@ -1,11 +1,13 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user-dto';
+
+import { LoginUserDto } from './dto/login-user.dto';
 import { Response } from 'express';
-import { Auth } from './decorators/auth.decorator';
-import { MailService } from 'src/mail/mail.service';
+
 import { ForgotPasswordDto, ResetPasswordDto } from './dto/forgot-password.dto';
+import { MailService } from '../mail/mail.service';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { Auth } from 'src/common/decorators/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -34,7 +36,7 @@ export class AuthController {
 
   @Post('logout')
   @Auth()
-  async logout(@Res({ passthrough: true }) res: Response) {
+  logout(@Res({ passthrough: true }) res: Response) {
     this.authService.logout(res);
     return { message: 'Logout exitoso' };
   }
