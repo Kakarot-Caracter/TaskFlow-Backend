@@ -8,7 +8,7 @@ Backend profesional para gestión de tareas con autenticación, construido con:
 - Envío de correos vía SMTP (restablecimiento de contraseña)
 - Documentación con Swagger (OpenAPI)
 
-Base URL de la API: http://localhost:3001/api/v1  
+Base URL de la API: http://localhost:3001/api/v1
 Documentación Swagger: http://localhost:3001/docs
 
 Nota: Las rutas de la API están bajo el prefijo global `/api/v1`, mientras que Swagger está expuesto en `/docs`.
