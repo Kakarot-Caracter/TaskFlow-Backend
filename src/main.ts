@@ -10,7 +10,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api/v1/');
 
   app.useGlobalFilters(new PrismaClientExceptionFilter());
 
@@ -25,16 +25,15 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // ⚠️ Elimina propiedades no declaradas en el DTO
-      forbidNonWhitelisted: true, // ⚠️ Lanza error si llegan propiedades no permitidas
-      transform: true, // ✅ Convierte tipos (ej: string a number)
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Taskflow Documentacion.')
+    .setDescription('Taskflow-backend es una api ')
     .setVersion('1.0')
-    .addTag('cats')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, documentFactory);

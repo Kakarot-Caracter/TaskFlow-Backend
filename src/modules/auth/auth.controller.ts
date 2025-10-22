@@ -44,7 +44,7 @@ export class AuthController {
   @Post('forgot-password')
   async forgot(@Body() dto: ForgotPasswordDto) {
     const token = await this.authService.generateResetToken(dto.email);
-    const link = `http://localhost:3000/reset-password?token=${token}`;
+    const link = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
     await this.mailService.sendResetPasswordEmail(dto.email, link);
     return { message: 'Email de reseteo enviado' };
@@ -52,7 +52,6 @@ export class AuthController {
 
   @Post('reset-password')
   async reset(@Body() dto: ResetPasswordDto) {
-    console.log('DTO recibido:', dto);
     await this.authService.resetPassword(dto.token, dto.newPassword);
     return { message: 'Contraseña actualizada correctamente' };
   }

@@ -107,9 +107,9 @@ export class AuthService {
   private setCookie(res: Response, token: string) {
     res.cookie('auth_token', token, {
       httpOnly: true,
-      secure: true, // Obligatorio para sameSite: 'none'
-      sameSite: 'none', // Permite cookies cross-domain
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 semana
+      secure: true,
+      sameSite: 'none',
+      maxAge: 1000 * 60 * 60 * 24 * 7,
       path: '/',
     });
   }

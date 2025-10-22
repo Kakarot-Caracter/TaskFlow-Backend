@@ -1,24 +1,22 @@
-// schema.prisma
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  email     String   @unique
-  password  String
-  resetToken         String?   
-  resetTokenExpires  DateTime?
-  createdAt DateTime @default(now())
-  tasks     Task[]  
+  id                Int       @id @default(autoincrement())
+  name              String    @unique
+  email             String    @unique
+  password          String
+  resetToken        String?
+  resetTokenExpires DateTime?
+  createdAt         DateTime  @default(now())
+  tasks             Task[]
 }
 
 enum Priority {
@@ -28,19 +26,15 @@ enum Priority {
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
-  description String?   
-  priority    Priority  @default(MEDIUM)
-  category String
+  description String?
+  priority    Priority @default(MEDIUM)
+  category    String
   dueDate     DateTime
-  completed Boolean @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   userId      Int
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-
- 
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-
