@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   taskflow-db:
-    image: postgres:16
+    image: postgres:18
     container_name: taskflow-db
     restart: always
     environment:
@@ -12,25 +10,29 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql # <-- importante para Postgres 18+
+    networks:
+      - taskflow-network
 
   taskflow-api:
     build:
       context: .
       dockerfile: Dockerfile
-      network: host
+      network: host # eliminar si no lo necesitas; no es común en compose
     container_name: taskflow-api
     restart: always
     depends_on:
       - taskflow-db
     ports:
       - '3001:3001'
-    environment:
-      DATABASE_URL: postgresql://taskflow:taskflow@taskflow-db:5432/taskflow?schema=public
-      JWT_SECRET: supersecret
-      PORT: 3000
-    command: >
-      sh -c "npx prisma migrate deploy && node dist/main.js"
+    env_file:
+      - .env
+    networks:
+      - taskflow-network
 
 volumes:
   postgres_data:
+
+networks:
+  taskflow-network:
+    driver: bridge
